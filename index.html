@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%93%9D%3C/text%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HSK 3.0 模拟练习（一级・二级・三级）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#EDF0F3;--sheet:#FFFFFF;--ink:#111B25;--muted:#586573;--line:#C8D0D8;--soft:#E3E8ED;
+  --graphite:#262B33;--on-graphite:#FFFFFF;--red:#B63A28;--focus:#2F5D8C;
+  --serif:"Noto Serif SC","Source Han Serif SC","Noto Serif CJK SC","Songti SC","STSong",serif;
+  --sans-ja:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+  --sans-zh:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#10151B;--sheet:#182029;--ink:#E5EBF0;--muted:#97A4B0;--line:#2C3743;--soft:#222C37;
+    --graphite:#E5EBF0;--on-graphite:#10151B;--red:#F27C66;--focus:#7FB0E0;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#10151B;--sheet:#182029;--ink:#E5EBF0;--muted:#97A4B0;--line:#2C3743;--soft:#222C37;
+  --graphite:#E5EBF0;--on-graphite:#10151B;--red:#F27C66;--focus:#7FB0E0;color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.7 var(--sans-ja)}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;cursor:pointer}
+button:disabled{cursor:not-allowed}
+h1,h2,h3,p,ul,ol{margin:0}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.zh{font-family:var(--sans-zh)}
+.muted{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.wrap{max-width:640px;margin:0 auto;padding:24px 18px 64px}
+
+/* ---------- buttons ---------- */
+.btn{appearance:none;border:1.5px solid var(--graphite);background:var(--graphite);color:var(--on-graphite);border-radius:999px;padding:11px 22px;min-height:46px;font-weight:700;line-height:1.3}
+.btn .zh{display:block;font-size:.74rem;font-weight:400;opacity:.85}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:disabled{opacity:.35}
+.tbtn{appearance:none;border:1.5px solid var(--line);background:var(--sheet);border-radius:999px;padding:7px 14px;min-height:40px;font-family:var(--sans-zh);font-weight:500}
+.tbtn.solid{background:var(--graphite);color:var(--on-graphite);border-color:var(--graphite)}
+
+/* ---------- home ---------- */
+.title{font-family:var(--serif);font-weight:700;font-size:clamp(2.1rem,9vw,2.8rem);line-height:1.2;letter-spacing:.02em}
+.sub{margin-top:4px;color:var(--muted)}
+.lead{margin-top:18px;max-width:34em}
+.lead .zh{display:block;margin-top:4px;font-size:.9rem;color:var(--muted)}
+.rules{margin:18px 0 0;padding-left:1.2em;max-width:34em;font-size:.95rem}
+.rules li+li{margin-top:6px}
+.h2{margin-top:34px;font-size:1.05rem;font-weight:700}
+.h2 .zh{font-weight:400;font-size:.85rem;color:var(--muted);margin-left:.5em}
+.banner{margin-top:22px;padding:12px 14px;border:1.5px solid var(--graphite);border-radius:8px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.levels{margin-top:10px}
+.lv{display:grid;grid-template-columns:3.6rem 1fr auto;gap:12px;align-items:center;width:100%;text-align:left;background:var(--sheet);border:1px solid var(--line);padding:14px;margin-top:-1px;color:var(--ink)}
+.lv:first-child{border-radius:8px 8px 0 0}
+.lv:last-child{border-radius:0 0 8px 8px}
+.lv .num{font-family:var(--serif);font-weight:700;font-size:1.8rem;line-height:1}
+.lv .d1{font-weight:500}
+.lv .d2{font-size:.86rem;color:var(--muted)}
+.lv.sel{border-color:var(--graphite);box-shadow:inset 0 0 0 1px var(--graphite);position:relative;z-index:1}
+.lv.off{background:transparent;color:var(--muted);cursor:not-allowed}
+.lv .side{font-size:.82rem;color:var(--muted);text-align:right}
+.lv.static{cursor:default}
+.lv .side .tbtn{margin-left:6px;min-height:36px;padding:4px 12px}
+.bub{width:24px;height:24px;border:2px solid var(--muted);border-radius:50%;display:inline-block;flex:none}
+.bub.on{background:var(--graphite);border-color:var(--graphite)}
+.field{margin-top:26px;display:grid;gap:6px;max-width:22rem}
+.field label{font-weight:500;font-size:.95rem}
+.field input{font:inherit;padding:11px 14px;border:1.5px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink)}
+.field input:focus{border-color:var(--graphite);outline:none;box-shadow:0 0 0 3px var(--soft)}
+.start{margin-top:22px}
+.foot{margin-top:40px;font-size:.8rem;color:var(--muted);line-height:1.65}
+.foot p+p{margin-top:6px}
+
+/* ---------- quiz ---------- */
+.qbar{flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:8px;padding:10px 0;background:var(--paper);border-bottom:1px solid var(--line)}
+.qlv{font-family:var(--serif);font-weight:700;margin-right:auto}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.4rem;line-height:1;margin-right:6px}
+.timer.low{color:var(--red)}
+.qmeta{display:flex;justify-content:space-between;align-items:baseline;margin-top:20px;color:var(--muted);font-size:.92rem}
+.qno{font-family:var(--serif);font-weight:700;font-size:1.2rem;color:var(--ink)}
+.instr{margin-top:6px;font-family:var(--serif);font-size:1rem;color:var(--muted)}
+.stem{font-family:var(--serif);font-size:clamp(1.4rem,5.6vw,1.7rem);line-height:1.9;margin:14px 0 4px}
+.blank{display:inline-block;min-width:2.6em;border-bottom:2px solid var(--ink);text-align:center;margin:0 .15em;line-height:1.3;min-height:1.3em}
+.opts{margin-top:14px;border-top:1px solid var(--line)}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:12px 6px;min-height:58px}
+.opt .t{font-family:var(--serif);font-size:1.3rem;line-height:1.5}
+.opt[aria-checked="true"]{background:var(--soft)}
+.opts.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:0}
+.opts.grid .opt{border:1px solid var(--line);border-radius:8px;background:var(--sheet);padding:12px 14px}
+.opts.grid .opt[aria-checked="true"]{border-color:var(--graphite);background:var(--soft);box-shadow:inset 0 0 0 1px var(--graphite)}
+.ab{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--muted);display:inline-grid;place-items:center;font:500 .7rem/1 var(--sans-zh);color:var(--muted);position:relative;flex:none}
+.ab.fill{background:var(--graphite);color:var(--on-graphite);border-color:var(--graphite)}
+.ab.key{box-shadow:0 0 0 2.5px var(--sheet),0 0 0 4.5px var(--red)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:26px}
+
+/* passages */
+.pas{margin:14px 0 6px;font-family:var(--serif);font-size:1.2rem;line-height:1.9}
+.pas.note{background:var(--sheet);border:1px solid var(--line);border-left:4px solid var(--graphite);padding:12px 16px}
+.pas.note .sign{text-align:right;margin-top:2px}
+.pas.sign{background:var(--sheet);border:3px double var(--ink);padding:12px 16px;text-align:center}
+.pas.sign .ttl{font-size:1.8rem;font-weight:700;letter-spacing:.2em;line-height:1.5}
+.pas.prices{background:var(--sheet);border:1px solid var(--line);padding:6px 16px}
+.pas.prices .pr{display:flex;align-items:baseline;gap:8px;padding:2px 0}
+.pas.prices .lead-dots{flex:1;border-bottom:2px dotted var(--line);transform:translateY(-.3em)}
+.pas.sms{background:var(--soft);border-radius:18px 18px 18px 4px;padding:10px 16px;max-width:94%}
+.pas.table table{border-collapse:collapse;width:100%;background:var(--sheet)}
+.pas.table caption{font-weight:700;padding-bottom:4px;text-align:left}
+.pas.table td{border:1px solid var(--line);padding:6px 14px;text-align:center}
+.compact .pas{font-size:1.05rem;line-height:1.7;margin:8px 0 4px}
+.compact .pas.sign .ttl{font-size:1.3rem}
+
+/* ---------- overlay ---------- */
+.ov{position:fixed;inset:0;z-index:30;background:rgba(8,12,17,.58);display:grid;place-items:center;padding:16px}
+.panel{background:var(--sheet);border:1px solid var(--line);border-radius:12px;width:100%;max-width:540px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow:auto;padding:18px 18px 20px}
+.panel h2{font-family:var(--serif);font-size:1.25rem}
+.panel .row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.panel p{margin-top:8px}
+
+/* ---------- answer card ---------- */
+.acard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 18px;margin-top:12px}
+.arow{display:flex;align-items:center;gap:6px;padding:5px 2px;border:0;border-bottom:1px dotted var(--line);background:transparent;width:100%;min-height:40px;text-align:left;color:var(--ink)}
+button.arow:hover{background:var(--soft)}
+.arow.cur{background:var(--soft)}
+.arow .n{width:1.8em;text-align:right;font-family:var(--serif);font-weight:700;margin-right:2px}
+.arow .m{width:1.2em;text-align:center;color:var(--red);font-weight:700;font-family:var(--sans-ja);font-size:1.05rem}
+.arow .gap{width:1.2em}
+.legend{margin-top:10px;font-size:.82rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+.legend .ab{width:18px;height:18px;font-size:0}
+@media (max-width:460px){.acard{gap:0 12px}.arow{gap:3px}.arow .n{width:1.45em;margin-right:0}.arow .m{width:1em;font-size:.95rem}.arow .ab{width:22px;height:22px;font-size:.62rem}.ab.key{box-shadow:0 0 0 2px var(--sheet),0 0 0 3.5px var(--red)}}
+
+/* ---------- result ---------- */
+.who{font-size:.92rem;color:var(--muted)}
+.score{display:flex;align-items:baseline;gap:.25em;font-family:var(--serif);font-weight:700;margin-top:14px}
+.score .big{font-size:clamp(3.8rem,19vw,5.2rem);line-height:1}
+.score .of{font-size:1.7rem;color:var(--muted)}
+.score .pct{margin-left:auto;font-size:1.4rem}
+.est{position:relative;height:58px;margin:14px 0 2px}
+.est .track{position:absolute;left:0;right:0;top:22px;height:6px;background:var(--line);border-radius:3px}
+.est .range{position:absolute;top:18px;height:14px;background:var(--graphite);opacity:.3;border-radius:7px}
+.est .dot{position:absolute;top:15px;width:20px;height:20px;border-radius:50%;background:var(--graphite);transform:translateX(-50%)}
+.est .chance{position:absolute;top:8px;height:30px;border-left:2px dashed var(--red)}
+.est .tk{position:absolute;top:40px;font-size:.72rem;color:var(--muted);transform:translateX(-50%)}
+.cap{margin-top:12px;font-size:.93rem}
+.cap .zh{display:block;color:var(--muted);font-size:.86rem;margin-top:2px}
+.cap+.cap{margin-top:8px}
+.sec{margin-top:36px}
+.sec h2{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.sec h2 .zh{font-weight:400;font-size:.85rem;color:var(--muted);margin-left:.5em}
+.trow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.trow .sq{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:9.6rem}
+.trow .sq i{width:13px;height:13px;border:1.5px solid var(--muted);border-radius:50%;display:block}
+.trow .sq i.ok{background:var(--graphite);border-color:var(--graphite)}
+.trow .sc{font-variant-numeric:tabular-nums;min-width:2.8em;text-align:right}
+.wrong{list-style:none;padding:0}
+.wrong li{padding:16px 0;border-bottom:1px solid var(--line)}
+.wrong .wh{display:flex;gap:10px;align-items:baseline;font-size:.82rem;color:var(--muted)}
+.wrong .wh b{font-family:var(--serif);font-size:1.15rem;color:var(--ink)}
+.wrong .ans{margin-top:8px;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:.95rem;align-items:baseline}
+.wrong .ans .l{font-size:.8rem;color:var(--muted)}
+.wrong .ans .v{font-family:var(--serif);font-size:1.1rem}
+.wrong .ans .v.right{color:var(--red);font-weight:700}
+.wrong .ans .v.mine{text-decoration:line-through;text-decoration-color:var(--muted)}
+.wrong .ex{margin-top:8px;font-size:.92rem}
+.wrong .ex .zh{display:block;color:var(--muted);font-size:.86rem}
+.none{color:var(--muted)}
+.lvrow{display:grid;grid-template-columns:3em 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.lvrow .n{font-family:var(--serif);font-weight:700;font-size:1.15rem}
+.lvrow .s{font-size:.86rem;color:var(--muted)}
+textarea.copy{width:100%;min-height:9em;margin-top:12px;font:13px/1.6 var(--sans-zh);padding:10px;border:1.5px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+/* order (tap-to-arrange) */
+.ord{margin-top:16px}
+.ord-line{min-height:62px;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;align-items:center}
+.ord-line .ph{color:var(--muted);font-size:.9rem;font-family:var(--sans-zh)}
+.ord-pool{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.tile{appearance:none;border:1.5px solid var(--line);background:var(--sheet);border-radius:8px;padding:8px 16px;font-family:var(--serif);font-size:1.35rem;line-height:1.4;min-height:50px;color:var(--ink)}
+.ord-line .tile{border-color:var(--graphite);background:var(--soft)}
+.tile:disabled{opacity:.22}
+.ord-tools{margin-top:16px}
+.hint{margin:6px 0 2px;display:flex;align-items:baseline;gap:12px;font-family:var(--sans-zh)}
+.hint .hl{font-size:1rem;color:var(--muted)}
+.hint .hp{font-size:clamp(2rem,9vw,2.5rem);font-weight:700;line-height:1.3;color:var(--ink);letter-spacing:.04em}
+.pill{display:inline-block;padding:2px 10px;border:1.5px solid var(--muted);border-radius:999px;font-size:.78rem;color:var(--muted);font-family:var(--sans-zh);line-height:1.5}
+.pill.on{background:var(--graphite);color:var(--on-graphite);border-color:var(--graphite)}
+.pas.text{background:var(--sheet);border:1px solid var(--line);padding:12px 16px}
+.rsh{margin-top:30px;font-size:1.05rem;font-weight:700}
+.rsh .zh{font-weight:400;font-size:.85rem;color:var(--muted);margin-left:.5em}
+.rtotal{margin-top:26px;font-size:.95rem;color:var(--muted)}
+.cardhead{margin-top:18px;font-size:.92rem;font-weight:700}
+/* large-text mode */
+html.big{font-size:125%}
+html.big .ab{width:32px;height:32px;font-size:.8rem}
+html.big .arow .ab{width:30px;height:30px;font-size:.75rem}
+html.big .legend .ab{width:22px;height:22px;font-size:0}
+html.big .acard{grid-template-columns:minmax(0,1fr)}
+html.big .arow{min-height:52px}
+html.big .opt{min-height:72px}
+html.big .tbtn{min-height:50px;padding:8px 18px}
+html.big .btn{min-height:56px}
+html.big .tile{min-height:60px}
+html.big .trow .sq i{width:16px;height:16px}
+html.big .est .tk{font-size:.8rem}
+.bigrow{margin-top:18px}
+.qmeta .qtools{display:flex;align-items:center;gap:12px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:420px){.wrap{padding:18px 14px 56px}.opts.grid{gap:8px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<!-- ================= HOME ================= -->
+<section id="home">
+  <h1 class="title" lang="zh-CN">HSK 3.0 模拟练习</h1>
+  <p class="sub">一級から三級（読解と書き取り）　サンプル版</p>
+  <p class="lead">HSK 3.0（2025年版シラバス）の語彙の範囲内で作った、読解と書き取りの練習問題です。公式の試験問題ではなく、難しさの調整もしていません。聴解と会話は含みません。書き取りは「語を並べ替える」「字を選ぶ」形式で、手書きや入力はありません。
+    <span class="zh" lang="zh-CN">只用2025版词汇出题的阅读与书写样卷，不是官方试题。</span></p>
+  <ul class="rules">
+    <li>制限時間は部分ごとに決まっています。始めたあとは止まりません。途中でページを閉じても、時計は進みます。</li>
+    <li>二級は「読解」と「書き取り」の2部分です。書き取りに進むと、読解には戻れません。</li>
+    <li>問題数が少ないので、結果は目安です。公式のスコアには換算しません。</li>
+    <li>試験中の指示は中国語だけです。「选＝選ぶ」「答题卡＝解答カード」「交卷＝提出する」。</li>
+  </ul>
+  <div class="bigrow"><button class="tbtn" id="bigBtn" type="button" aria-pressed="false">大きい文字にする<span class="zh" lang="zh-CN">　大字模式</span></button></div>
+  <div id="banner"></div>
+  <h2 class="h2">級を選ぶ<span class="zh" lang="zh-CN">选择级别</span></h2>
+  <div class="levels" id="levels" role="radiogroup" aria-label="級を選ぶ"></div>
+  <div class="field">
+    <label for="name">名前（結果に表示されます）<span class="zh muted" lang="zh-CN">　姓名</span></label>
+    <input id="name" type="text" autocomplete="off" maxlength="30" placeholder="例：山田花子">
+  </div>
+  <div class="start"><button class="btn" id="start" type="button" disabled>试験を始める<span class="zh" lang="zh-CN">开始考试</span></button></div>
+  <div class="foot">
+    <p>出題範囲：公式の2025年版HSK語彙表に含まれる語だけを使用し、漢字もその級までの認読字（累計：1級246字、2級371字、3級655字）の中に収めています。プログラムで全問を検査済みです。</p>
+    <p>題数と時間は二次資料に基づく数字で、公式資料での確認は済んでいません。二次資料によると、正式な3級には会話（口頭）のテストもありますが、この模擬には含まれません。</p>
+  </div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section id="quiz" hidden>
+  <header class="qbar">
+    <span class="qlv" id="qlv" lang="zh-CN">一级阅读</span>
+    <span class="timer" id="timer" role="timer" aria-live="off">20:00</span>
+    <button class="tbtn" id="cardBtn" type="button" lang="zh-CN">答题卡</button>
+    <button class="tbtn solid" id="submitBtn" type="button" lang="zh-CN">交卷</button>
+  </header>
+  <div id="qbody">
+  <div class="qmeta" lang="zh-CN"><span class="qno" id="qno"></span><span class="qtools"><button class="tbtn" id="bigBtn2" type="button" aria-pressed="false" lang="zh-CN">大字</button><span id="qprog"></span></span></div>
+  <p class="instr" id="instr" lang="zh-CN"></p>
+  <div id="passage" lang="zh-CN"></div>
+  <p class="stem" id="stem" lang="zh-CN"></p>
+  <p class="hint" id="hint" lang="zh-CN" hidden></p>
+  <div class="opts" id="opts" role="radiogroup" aria-labelledby="stem" lang="zh-CN"></div>
+  <div class="ord" id="ord" lang="zh-CN" hidden>
+    <div class="ord-line" id="ordLine" aria-label="已经排好的词"></div>
+    <div class="ord-pool" id="ordPool"></div>
+    <div class="ord-tools"><button class="tbtn" id="ordClear" type="button">清除</button></div>
+  </div>
+  <div class="nav" lang="zh-CN">
+    <button class="btn ghost" id="prev" type="button">上一题</button>
+    <button class="btn" id="next" type="button">下一题</button>
+  </div>
+  </div>
+  <div class="sr" id="live" aria-live="polite"></div>
+</section>
+
+<!-- ================= RESULT ================= -->
+<section id="result" hidden>
+  <p class="who" id="who"></p>
+  <h1 class="title" id="rtitle" tabindex="-1" style="font-size:1.6rem;margin-top:6px"></h1>
+  <div id="rsections"></div>
+  <p class="rtotal" id="rtotal"></p>
+  <div id="estcap"></div>
+
+  <div class="sec">
+    <h2>問題タイプ別<span class="zh" lang="zh-CN">各类题得分</span></h2>
+    <div id="types"></div>
+    <p class="cap muted" style="font-size:.84rem">1タイプあたり5〜9問なので、参考程度に見てください。<span class="zh" lang="zh-CN">每类题数很少，仅供参考。</span></p>
+  </div>
+
+  <div class="sec">
+    <h2>解答カード<span class="zh" lang="zh-CN">答题卡</span></h2>
+    <div id="rcards"></div>
+    <div class="legend">
+      <span><span class="ab fill"></span> あなたの答え</span>
+      <span><span class="ab key"></span> 正解（赤い輪）</span>
+      <span style="color:var(--red);font-weight:700">○ 正解　× 不正解・未回答</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>間違えた問題・未回答<span class="zh" lang="zh-CN">错题与未答</span></h2>
+    <ul class="wrong" id="wrong"></ul>
+  </div>
+
+  <div class="sec">
+    <h2>次に受ける級<span class="zh" lang="zh-CN">下一步</span></h2>
+    <div id="next-levels"></div>
+    <p class="cap muted" style="font-size:.84rem">同じ問題をもう一度受けると、答えを覚えているため参考になりません。<span class="zh" lang="zh-CN">重做的是同一套题，会记得答案，参考价值有限。</span></p>
+  </div>
+
+  <div class="actions">
+    <button class="btn" id="copy" type="button">結果をコピー<span class="zh" lang="zh-CN">复制成绩发给老师</span></button>
+    <button class="btn ghost" id="home-btn" type="button">最初の画面へ<span class="zh" lang="zh-CN">返回首页</span></button>
+  </div>
+  <textarea class="copy" id="copybox" readonly hidden aria-label="結果テキスト"></textarea>
+</section>
+
+</main>
+
+<!-- ================= OVERLAYS ================= -->
+<div class="ov" id="ov-card" hidden role="dialog" aria-modal="true" aria-labelledby="ov-card-t">
+  <div class="panel">
+    <h2 id="ov-card-t" lang="zh-CN">答题卡</h2>
+    <p class="muted" style="font-size:.88rem" lang="zh-CN">点一行，回到那一题。</p>
+    <div class="acard" id="navcard" lang="zh-CN"></div>
+    <div class="row"><button class="btn" id="card-close" type="button" lang="zh-CN">回去做题</button></div>
+  </div>
+</div>
+<div class="ov" id="ov-confirm" hidden role="dialog" aria-modal="true" aria-labelledby="ov-confirm-t">
+  <div class="panel">
+    <h2 id="ov-confirm-t" lang="zh-CN">现在交卷吗？</h2>
+    <p id="confirm-msg" lang="zh-CN"></p>
+    <div class="row">
+      <button class="btn ghost" id="confirm-no" type="button" lang="zh-CN">回去做题</button>
+      <button class="btn" id="confirm-yes" type="button" lang="zh-CN">交卷</button>
+    </div>
+  </div>
+</div>
+<div class="ov" id="ov-sec" hidden role="dialog" aria-modal="true" aria-labelledby="ov-sec-t">
+  <div class="panel">
+    <h2 id="ov-sec-t" lang="zh-CN"></h2>
+    <p id="sec-msg" lang="zh-CN"></p>
+    <p class="muted" id="sec-ja" style="font-size:.9rem"></p>
+    <div class="row"><button class="btn" id="sec-go" type="button" lang="zh-CN"></button></div>
+  </div>
+</div>
+<div class="ov" id="ov-time" hidden role="alertdialog" aria-modal="true" aria-labelledby="ov-time-t">
+  <div class="panel">
+    <h2 id="ov-time-t" lang="zh-CN">时间到</h2>
+    <p id="time-msg" lang="zh-CN">已经自动交卷。</p>
+    <p class="muted" style="font-size:.9rem">制限時間になったため、自動で提出しました。</p>
+    <div class="row"><button class="btn" id="time-ok" type="button" lang="zh-CN">看结果</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+const DATA = {"levels":{"1":{"zh":"一级","sections":[{"key":"read","zh":"阅读","ja":"読解","minutes":20,"count":20}],"questions":[{"id":1,"type":"qa","stem":"你叫什么名字？","opts":["我是学生。","我叫小明。","我很好。","我有三个。"],"key":1,"ja":"「你叫什么名字？」は名前をたずねる文です。答えは「我叫〜」。","zh":"问名字，要用“我叫……”回答。"},{"id":2,"type":"qa","stem":"你家有几口人？","opts":["我家在中国。","我今年六岁。","我是学生。","我家有五口人。"],"key":3,"ja":"「几口人」は家族の人数をたずねる言い方。人数を答えているのは D。","zh":"“几口人”问家里有几个人，要回答人数。"},{"id":3,"type":"qa","stem":"现在几点？","opts":["现在三点。","今天星期三。","我在家。","明天下午。"],"key":0,"ja":"「几点」は時刻をたずねます。答えは「三点」。B は曜日、D は明日の午後です。","zh":"“几点”问时间，回答“三点”。"},{"id":4,"type":"qa","stem":"这个多少钱？","opts":["五个。","五岁。","五块。","五点。"],"key":2,"ja":"「多少钱」は値段をたずねます。お金の数え方は「块」。個は「个」、年齢は「岁」です。","zh":"“多少钱”问价钱，钱的量词是“块”。"},{"id":5,"type":"qa","stem":"今天天气怎么样？","opts":["今天很热。","明天下雨。","我喜欢水果。","他在学校。"],"key":0,"ja":"「天气怎么样」は天気をたずねます。「今天」の天気を答えているのは A。B は明日の天気です。","zh":"问今天的天气。B说的是明天。"},{"id":6,"type":"cloze","stem":"我有三{_}书。","opts":["个","块","本","只"],"key":2,"ja":"本・ノートを数える量詞は「本」。「三本书」。","zh":"书用量词“本”。"},{"id":7,"type":"cloze","stem":"他病了，我们{_}去医院看他。","opts":["很","想","太","吗"],"key":1,"ja":"「想＋動詞」で「〜したい」。「我们想去医院看他」。","zh":"“想+动词”表示想做某事。"},{"id":8,"type":"cloze","stem":"今天{_}冷，我不想去学校。","opts":["吗","个","的","很"],"key":3,"ja":"「很＋形容詞」で「とても〜」。「今天很冷」。","zh":"“很+形容词”。"},{"id":9,"type":"cloze","stem":"我买了两{_}衣服。","opts":["个","件","块","本"],"key":1,"ja":"服を数える量詞は「件」。「两件衣服」。","zh":"衣服用量词“件”。"},{"id":10,"type":"cloze","stem":"现在是中午十二点，我们去吃{_}。","opts":["午饭","早饭","晚饭","做饭"],"key":0,"ja":"昼に食べるのは「午饭」。「早饭」は朝ごはん、「晚饭」は夕ごはんです。","zh":"中午吃午饭。"},{"id":11,"type":"note","stem":"妈妈什么时候回家？","opts":["中午","晚上六点","下午三点","早上七点"],"key":1,"ja":"メモの「晚上六点我回家」から、お母さんが帰るのは夜6時。「中午」は小明が学校で食べる時間です。","zh":"妈妈晚上六点回家；中午是小明在学校吃饭。","passage":{"kind":"note","to":"小明：","lines":["我今天上班。","中午你在学校吃饭。","晚上六点我回家。"],"sign":"妈妈"}},{"id":12,"type":"note","stem":"超市什么时候开？","opts":["今天上午","今天下午","明天上午","明天下午"],"key":2,"ja":"「今天不开，明天上午九点开」→ 開くのは明日の午前です。","zh":"今天不开，明天上午才开。","passage":{"kind":"sign","title":"超市","lines":["今天不开。","明天上午九点开。"]}},{"id":13,"type":"note","stem":"牛奶多少钱？","opts":["两块","三块","四块","五块"],"key":2,"ja":"値段表で「牛奶」を探します。四块です。","zh":"牛奶四块。","passage":{"kind":"prices","rows":[["牛奶","四块"],["水","两块"],["面包","五块"],["苹果","三块"]]}},{"id":14,"type":"note","stem":"明天天气怎么样？","opts":["天气很热","下雪，很冷","下雨，很冷","下雨，很热"],"key":2,"ja":"「明天下雨，很冷」→ 雨で寒い。「热」は暑い、「冷」は寒いです。","zh":"明天下雨，很冷。","passage":{"kind":"sms","text":"明天下雨，很冷。你去学校，要多穿衣服。"}},{"id":15,"type":"note","stem":"星期几没有汉语课？","opts":["星期一","星期二","星期三","星期四"],"key":3,"ja":"時間割で「没有」と書いてある曜日を探します。星期四です。","zh":"星期四没有汉语课。","passage":{"kind":"table","title":"汉语课","rows":[["星期一","上午"],["星期二","上午"],["星期三","下午"],["星期四","没有"]]}},{"id":16,"type":"scene","stem":"你想问老师的名字，你说：","opts":["您叫什么名字？","你是谁？","老师，你好！","老师多大？"],"key":0,"ja":"先生の名前をたずねるときは、丁寧な「您」を使って「您叫什么名字？」。","zh":"问老师的名字，要用“您”。"},{"id":17,"type":"scene","stem":"你在超市，想买苹果，你说：","opts":["对不起。","谢谢你。","再见！","苹果多少钱？"],"key":3,"ja":"買い物で値段を聞く表現は「多少钱」。ほかは場面に合いません。","zh":"买东西时问价钱。"},{"id":18,"type":"scene","stem":"朋友生病了，你想知道他现在怎么样，你问：","opts":["你几岁了？","你现在怎么样？","你想吃什么？","你是谁？"],"key":1,"ja":"様子を聞くときは「你现在怎么样？」。","zh":"关心生病的朋友，问“你现在怎么样？”。"},{"id":19,"type":"scene","stem":"朋友对你说“谢谢”，你说：","opts":["没关系。","对不起。","再见。","不客气。"],"key":3,"ja":"「谢谢」への返事は「不客气」。「没关系」は「对不起」への返事です。","zh":"“谢谢”回答“不客气”；“没关系”是回答“对不起”的。"},{"id":20,"type":"scene","stem":"你想知道医院在哪儿，你问：","opts":["请问，医院在哪儿？","医院很大。","你是医生吗？","医院多少钱？"],"key":0,"ja":"場所をたずねるのは「在哪儿」。「请问」をつけると丁寧です。","zh":"问地点用“在哪儿”，前面加“请问”。"}]},"2":{"zh":"二级","sections":[{"key":"read","zh":"阅读","ja":"読解","minutes":25,"count":25},{"key":"write","zh":"书写","ja":"書き取り","minutes":10,"count":10}],"questions":[{"id":1,"type":"qa","ja":"「住在哪儿」は住んでいる場所をたずねます。「旁边」は「そば・となり」。","zh":"问住在哪里，回答地点。","stem":"你住在哪儿？","opts":["我住在学校旁边。","我住了三年。","我不住。","我是老师。"],"key":0},{"id":2,"type":"qa","ja":"「运动」はスポーツ。「踢足球」はサッカーをすること。","zh":"“踢足球”是一种运动。","stem":"你喜欢什么运动？","opts":["我喜欢看电影。","我喜欢红色。","我喜欢踢足球。","我喜欢吃鱼。"],"key":2},{"id":3,"type":"qa","ja":"「为什么」には「因为〜」で理由を答えます。","zh":"问原因，用“因为……”回答。","stem":"你为什么不去？","opts":["所以我不去。","我不想吃。","我去过。","因为我身体不舒服。"],"key":3},{"id":4,"type":"qa","ja":"「怎么去」は交通手段をたずねます。「坐公交车」はバスで行く。","zh":"问方式，回答交通工具。","stem":"你怎么去学校？","opts":["我坐公交车去。","我去了学校。","我很喜欢。","我在学校。"],"key":0},{"id":5,"type":"qa","ja":"「几月几号」は日付をたずねます。","zh":"问日期，回答“几月几号”。","stem":"你的生日是几月几号？","opts":["我的生日很好。","九月三号。","星期六。","今年十岁。"],"key":1},{"id":6,"type":"cloze","ja":"動詞のあとで程度を表すときは「得」。「跑得很快」。","zh":"动词后面表示程度，用“得”。","stem":"他跑{_}很快。","opts":["的","地","得","着"],"key":2},{"id":7,"type":"cloze","ja":"「A离B很近」で「AはBから近い」。","zh":"“离”表示两地的距离。","stem":"我家{_}学校很近。","opts":["从","往","给","离"],"key":3},{"id":8,"type":"cloze","ja":"「虽然〜，但是…」で「〜だけれども…」。","zh":"“虽然……但是……”。","stem":"{_}他很累，但是他还在工作。","opts":["虽然","因为","所以","还是"],"key":0},{"id":9,"type":"cloze","ja":"「就」は「もう・早くも」の気持ちを表します。","zh":"“就”表示很早。","stem":"我六点{_}到学校了。","opts":["再","就","别","最"],"key":1},{"id":10,"type":"cloze","ja":"「跟我一起」で「私と一緒に」。","zh":"“跟……一起”。","stem":"你{_}我一起去吧。","opts":["比","离","跟","往"],"key":2},{"id":11,"type":"cloze","ja":"「快要〜了」で「もうすぐ〜」。","zh":"“快要……了”表示马上。","stem":"火车六点开，现在五点五十，火车{_}开了。","opts":["已经","正在","还是","快要"],"key":3},{"id":12,"type":"note","ja":"メモの「晚上我们一起去饭馆吃饭」から、行き先は飯店（レストラン）です。","zh":"便条里写了去饭馆吃饭。","stem":"妈妈和小红晚上去哪儿？","opts":["饭馆","学校","机场","商场"],"key":0,"passage":{"kind":"note","to":"小红：","lines":["我今天很忙。","你在家等我。","晚上我们一起去饭馆吃饭。"],"sign":"妈妈"}},{"id":13,"type":"note","ja":"「星期六和星期天，上午九点开」。日曜日は9時です。","zh":"周六周日上午九点开门。","stem":"星期天药店几点开？","opts":["上午八点","上午九点","下午五点","晚上九点"],"key":1,"passage":{"kind":"sign","title":"药店","lines":["星期一到星期五，上午八点开。","星期六和星期天，上午九点开。"]}},{"id":14,"type":"note","ja":"いちばん安いのは「红茶」（七块）。「最」は「いちばん」。","zh":"红茶七块，最便宜。","stem":"哪个最便宜？","opts":["绿茶","奶茶","红茶","咖啡"],"key":2,"passage":{"kind":"prices","rows":[["咖啡","十二块"],["奶茶","十块"],["绿茶","八块"],["红茶","七块"]]}},{"id":15,"type":"note","ja":"「我坐地铁回家」→ 地下鉄で帰ります。","zh":"他坐地铁回家。","stem":"他怎么回家？","opts":["坐公交车","打车","走路","坐地铁"],"key":3,"passage":{"kind":"sms","text":"我在机场，飞机下午三点到。你不要来，我坐地铁回家。"}},{"id":16,"type":"note","ja":"表で「游泳」の行を探します。星期二です。","zh":"星期二游泳。","stem":"星期几游泳？","opts":["星期一","星期二","星期三","星期四"],"key":1,"passage":{"kind":"table","title":"小红的一周","rows":[["星期一","跑步"],["星期二","游泳"],["星期三","打篮球"],["星期四","踢足球"]]}},{"id":17,"type":"note","ja":"「我每天走路去学校」→ 歩いて行きます。","zh":"他每天走路去学校。","stem":"小明怎么去学校？","opts":["走路","坐地铁","坐公交车","打车"],"key":0,"passage":{"kind":"text","text":"我叫小明，今年十二岁。我家离学校很近，所以我每天走路去学校。我喜欢运动，经常和朋友一起踢足球。"}},{"id":18,"type":"note","ja":"「经常和朋友一起踢足球」→ 友だちとです。","zh":"他和朋友一起踢足球。","stem":"小明和谁一起踢足球？","opts":["爸爸","朋友","老师","弟弟"],"key":1,"passage":{"kind":"text","text":"我叫小明，今年十二岁。我家离学校很近，所以我每天走路去学校。我喜欢运动，经常和朋友一起踢足球。"}},{"id":19,"type":"note","ja":"最初の文「明天是奶奶的生日」に答えがあります。","zh":"第一句就说明天是奶奶的生日。","stem":"明天是谁的生日？","opts":["爷爷","妈妈","奶奶","爸爸"],"key":2,"passage":{"kind":"text","text":"明天是奶奶的生日。爸爸妈妈去商场买东西，我在家等他们。晚上我们一起去饭馆吃饭。"}},{"id":20,"type":"note","ja":"「但是」のあとの「坐公交车很便宜」が答えです。","zh":"公交车便宜，地铁快。","stem":"坐公交车怎么样？","opts":["很快","很远","很累","很便宜"],"key":3,"passage":{"kind":"sign","title":"去机场","lines":["坐地铁很快，但是坐公交车很便宜。"]}},{"id":21,"type":"scene","ja":"誘うときは文末に「吧」。「我们一起去饭馆吧」。","zh":"邀请别人用“……吧”。","stem":"你想请朋友吃饭，你说：","opts":["我们一起去饭馆吧。","对不起，我忘了。","没关系。","我不懂。"],"key":0},{"id":22,"type":"scene","ja":"もう一度言ってほしいときは「请再说一次」。","zh":"没听懂，请老师再说一次。","stem":"老师说得很快，你不懂，你说：","opts":["老师，谢谢。","老师，请再说一次。","老师，再见。","老师，没关系。"],"key":1},{"id":23,"type":"scene","ja":"誕生日には「生日快乐！」。「过年好」は春節のあいさつです。","zh":"生日说“生日快乐”。","stem":"朋友过生日，你说：","opts":["过年好！","再见！","生日快乐！","不客气。"],"key":2},{"id":24,"type":"scene","ja":"道をたずねるときは「请问，去〜怎么走？」。","zh":"问路用“怎么走”。","stem":"你想知道去机场怎么走，你问：","opts":["请问，机场多少钱？","请问，你去机场吗？","我去过机场。","请问，去机场怎么走？"],"key":3},{"id":25,"type":"scene","ja":"ていねいに断る言い方は「不好意思，我不去了」。","zh":"委婉地拒绝。","stem":"朋友请你一起去，你不想去，你说：","opts":["不好意思，我不去了。","好的，我们一起去。","我很喜欢。","没关系。"],"key":0},{"id":26,"type":"order","ja":"「動詞＋得＋很＋形容詞」。「他跑得很快」。","zh":"他跑得很快。","tiles":["快","他","得","跑","很"],"accept":[["他","跑","得","很","快"]]},{"id":27,"type":"order","ja":"疑問詞「哪儿」は「去」のあとに入ります。「你想去哪儿旅游？」","zh":"疑问词“哪儿”放在“去”后面。","tiles":["哪儿","你","旅游","想","去"],"accept":[["你","想","去","哪儿","旅游"]]},{"id":28,"type":"order","ja":"「已经〜了」で「もう〜した」。「我已经吃完了」。","zh":"我已经吃完了。","tiles":["了","我","已经","吃完"],"accept":[["我","已经","吃完","了"]]},{"id":29,"type":"order","ja":"「快要〜了」で「もうすぐ〜」。「他快要走了」。","zh":"“快要……了”表示马上。","tiles":["了","快要","走","他"],"accept":[["他","快要","走","了"]]},{"id":30,"type":"order","ja":"道を数える量詞は「条」。「那条路很远」。","zh":"路用量词“条”。","tiles":["很","远","条","那","路"],"accept":[["那","条","路","很","远"]]},{"id":31,"type":"char","ja":"「再见」の「再」。形の似た「在」に注意。","zh":"“再见”的“再”。","stem":"明天{_}见！","opts":["再","在","的","了"],"key":0,"hint":"zài"},{"id":32,"type":"char","ja":"「做饭」は料理をすること。「坐」は座る。","zh":"做饭。","stem":"妈妈在{_}饭。","opts":["坐","做","作","左"],"key":1,"hint":"zuò"},{"id":33,"type":"char","ja":"「买」は買う、「卖」は売る。形がよく似ています。","zh":"买 mǎi，卖 mài。","stem":"我想{_}一件衣服。","opts":["卖","头","买","名"],"key":2,"hint":"mǎi"},{"id":34,"type":"char","ja":"妹なので女性の「她」。","zh":"妹妹是女的，用“她”。","stem":"我的妹妹，{_}今年十岁。","opts":["他","它","你","她"],"key":3,"hint":"tā"},{"id":35,"type":"char","ja":"「身体」の「体」。「休」と形が似ています。","zh":"“身体”的“体”。","stem":"我身{_}不舒服。","opts":["体","休","作","住"],"key":0,"hint":"tǐ"}]},"3":{"zh":"三级","sections":[{"key":"read","zh":"阅读","ja":"読解","minutes":30,"count":30},{"key":"write","zh":"书写","ja":"書き取り","minutes":20,"count":10}],"questions":[{"id":1,"type":"qa","ja":"「平时」は「ふだん」。好きなことを答えます。","zh":"问平时喜欢做什么，回答喜欢的事。","stem":"你平时喜欢做什么？","opts":["我喜欢听音乐。","我在图书馆。","我明天去。","我十岁。"],"key":0},{"id":2,"type":"qa","ja":"「迟到」は遅刻。理由は「因为〜」で答えます。","zh":"问为什么迟到，用“因为”回答原因。","stem":"你为什么迟到了？","opts":["我住在学校旁边。","因为我起床太晚了。","所以我迟到。","我昨天没有去。"],"key":1},{"id":3,"type":"qa","ja":"「什么时候」は時間をたずねます。「周末」が答えです。","zh":"问时间，回答“周末”。","stem":"你打算什么时候去旅游？","opts":["我坐飞机去。","我很喜欢旅游。","我打算周末去。","我和朋友一起去。"],"key":2},{"id":4,"type":"qa","ja":"「怎么样」は感想・様子をたずねます。","zh":"问衣服怎么样，回答评价。","stem":"这件衣服怎么样？","opts":["我买了一件。","它在商场。","我是学生。","很漂亮，但是有点儿贵。"],"key":3},{"id":5,"type":"qa","ja":"「最近怎么样」は近況をたずねます。","zh":"问近况。","stem":"你最近怎么样？","opts":["我最近很忙，但是很开心。","我去过北方。","我叫小明。","我在公园。"],"key":0},{"id":6,"type":"cloze","ja":"「把＋目的語＋動詞＋結果」で「〜を…した」。「我把作业做完了」。","zh":"“把”字句：我把作业做完了。","stem":"我{_}作业做完了。","opts":["被","把","向","往"],"key":1},{"id":7,"type":"cloze","ja":"受け身は「被」。「我的手机被朋友借走了」。","zh":"被动句用“被”。","stem":"我的手机{_}朋友借走了。","opts":["把","向","被","跟"],"key":2},{"id":8,"type":"cloze","ja":"「如果〜，就…」で「もし〜なら…」。","zh":"“如果……就……”。","stem":"{_}明天下雨，我们就不去公园了。","opts":["虽然","但是","还是","如果"],"key":3},{"id":9,"type":"cloze","ja":"「一边〜，一边…」で「〜しながら…」。","zh":"“一边……一边……”。","stem":"他{_}看电视，一边吃东西。","opts":["一边","一定","一样","一共"],"key":0},{"id":10,"type":"cloze","ja":"「除了〜以外」で「〜を除いて」。","zh":"“除了……以外”。","stem":"除了小明{_}，大家都来了。","opts":["以前","以外","以后","以上"],"key":1},{"id":11,"type":"cloze","ja":"「只要〜，就…」で「〜さえすれば…」。","zh":"“只要……就……”。","stem":"只要你努力，{_}能学好。","opts":["才","又","就","还"],"key":2},{"id":12,"type":"cloze","ja":"比較の文で程度を強めるときは「更」。「他比我更高」。","zh":"“比”字句里用“更”。","stem":"他比我{_}高。","opts":["很","太","最","更"],"key":3},{"id":13,"type":"note","ja":"メモの「明天下午我带给你」から、明日の午後です。","zh":"便条里说明天下午带给你。","stem":"小明什么时候给小红书？","opts":["明天下午","明天上午","今天下午","后天下午"],"key":0,"passage":{"kind":"note","to":"小红：","lines":["你的书我忘在教室了。","明天下午我带给你。"],"sign":"小明"}},{"id":14,"type":"note","ja":"掲示の「周末，下午一点到五点」から、閉まるのは5時です。","zh":"周末下午一点到五点，所以五点关门。","stem":"周末图书馆几点关门？","opts":["一点","五点","九点","八点"],"key":1,"passage":{"kind":"sign","title":"图书馆","lines":["星期一到星期五，早上八点到晚上九点。","周末，下午一点到五点。"]}},{"id":15,"type":"note","ja":"値段表で冰激凌（八块）より安いのは香蕉（六块）だけです。","zh":"比冰激凌（八块）便宜的只有香蕉（六块）。","stem":"哪个比冰激凌便宜？","opts":["蛋糕","西瓜","香蕉","冰激凌"],"key":2,"passage":{"kind":"prices","rows":[["蛋糕","十五块"],["冰激凌","八块"],["西瓜","十二块"],["香蕉","六块"]]}},{"id":16,"type":"note","ja":"「我在图书馆门口等你」→ 図書館の入口で会います。","zh":"他在图书馆门口等你。","stem":"他们在哪儿见面？","opts":["地铁站","学校里","饭馆门口","图书馆门口"],"key":3,"passage":{"kind":"sms","text":"我在图书馆门口等你。你坐地铁来，出来以后往右走，很近。"}},{"id":17,"type":"note","ja":"表で「星期天下午」の行を探します。","zh":"星期天下午打扫房子。","stem":"星期天下午做什么？","opts":["打扫房子","复习","打网球","看电影"],"key":0,"passage":{"kind":"table","title":"周末的事","rows":[["星期六上午","复习"],["星期六下午","打网球"],["星期天上午","看电影"],["星期天下午","打扫房子"]]}},{"id":18,"type":"note","ja":"本文の「很聪明，也很热情」から。","zh":"短文说她很聪明，也很热情。","stem":"老师怎么样？","opts":["很忙","聪明，热情","很矮","不热情"],"key":1,"passage":{"kind":"text","text":"我的汉语老师是一位年轻的女士。她很聪明，也很热情。她常常带我们去公园，一边走一边聊天儿。我们都很喜欢她。"}},{"id":19,"type":"note","ja":"「常常带我们去公园」→ 公園です。","zh":"她常常带学生去公园。","stem":"老师常常带学生去哪儿？","opts":["图书馆","动物园","公园","饭馆"],"key":2,"passage":{"kind":"text","text":"我的汉语老师是一位年轻的女士。她很聪明，也很热情。她常常带我们去公园，一边走一边聊天儿。我们都很喜欢她。"}},{"id":20,"type":"note","ja":"最初の文「去动物园玩」から。","zh":"第一句就说去动物园玩。","stem":"他们去哪儿玩了？","opts":["公园","图书馆","体育馆","动物园"],"key":3,"passage":{"kind":"text","text":"上个周末，我和朋友去动物园玩。我们看到了大熊猫和很多别的动物。天气很好，可是人太多了，所以我们很累。"}},{"id":21,"type":"note","ja":"「人太多了，所以我们很累」→ 人が多すぎたからです。","zh":"人太多了，所以很累。","stem":"他们为什么很累？","opts":["人太多了","天气不好","没有睡觉","走路去的"],"key":0,"passage":{"kind":"text","text":"上个周末，我和朋友去动物园玩。我们看到了大熊猫和很多别的动物。天气很好，可是人太多了，所以我们很累。"}},{"id":22,"type":"note","ja":"大人40元×2＋子ども20元＝100元です。","zh":"40+40+20=100块。","stem":"两个大人和一个孩子，一共多少钱？","opts":["八十块","一百块","一百二十块","六十块"],"key":1,"passage":{"kind":"sign","title":"电影票","lines":["大人四十块，孩子二十块。"]}},{"id":23,"type":"note","ja":"「晚上会下雨」→ 雨は夜です。","zh":"晚上会下雨。","stem":"明天什么时候下雨？","opts":["白天","早上","晚上","中午"],"key":2,"passage":{"kind":"sign","title":"天气","lines":["明天星期六，白天很热，晚上会下雨。"]}},{"id":24,"type":"note","ja":"メモの「下周一开会」から、会議です。","zh":"下周一开会。","stem":"小红下周一要做什么？","opts":["休假","请假","上课","开会"],"key":3,"passage":{"kind":"note","to":"小红：","lines":["下周一开会，请你九点到办公室。"],"sign":"小明"}},{"id":25,"type":"scene","ja":"人のものを借りるときは「请问，我可以借〜吗？」。","zh":"借东西要礼貌地问。","stem":"你想借朋友的笔，你说：","opts":["请问，我可以借你的笔吗？","我把笔借给你。","你的笔很漂亮。","笔在哪儿？"],"key":0},{"id":26,"type":"scene","ja":"助けを申し出るときは「你需要帮助吗？」。","zh":"想帮助别人，问“你需要帮助吗？”。","stem":"朋友生病了，你想帮助他，你说：","opts":["你去过医院吗？","你需要帮助吗？","你今天迟到了吗？","你喜欢吃什么？"],"key":1},{"id":27,"type":"scene","ja":"メニューがほしいときは「请给我菜单」。","zh":"要菜单说“请给我菜单”。","stem":"你在饭馆，想看菜单，你说：","opts":["请给我一个杯子。","我要回家。","请给我菜单。","谢谢你的礼物。"],"key":2},{"id":28,"type":"scene","ja":"意味をたずねるときは「是什么意思？」。","zh":"问词义用“是什么意思”。","stem":"你不知道一个词的意思，你问：","opts":["这个词多少钱？","这个词在哪儿？","我想学这个词。","这个词是什么意思？"],"key":3},{"id":29,"type":"scene","ja":"相手の良い知らせには「太好了！」でこたえます。「不客气」は「谢谢」への返事です。","zh":"对好消息说“太好了”。","stem":"朋友说：“我今天考试考得不错。”你说：","opts":["太好了！你很努力。","对不起，我忘了。","没关系。","不客气。"],"key":0},{"id":30,"type":"scene","ja":"休みをお願いするときは「想请假」。理由も言います。","zh":"请假要说明原因。","stem":"你想请假，你对老师说：","opts":["老师，我迟到了，对不起。","老师，我今天身体不舒服，想请假。","老师，这个词是什么意思？","老师，生日快乐！"],"key":1},{"id":31,"type":"order","ja":"「把＋物＋動詞＋在＋場所」。「我把书放在桌子上」。","zh":"“把”字句。","tiles":["放在","我","桌子上","把","书"],"accept":[["我","把","书","放在","桌子上"]]},{"id":32,"type":"order","ja":"受け身「物＋被＋人＋動詞」。「自行车被他骑走了」。","zh":"被动句。","tiles":["了","骑走","自行车","他","被"],"accept":[["自行车","被","他","骑走","了"]]},{"id":33,"type":"order","ja":"「動詞＋得＋很＋形容詞」。「她笑得很开心」。","zh":"她笑得很开心。","tiles":["开心","她","得","笑","很"],"accept":[["她","笑","得","很","开心"]]},{"id":34,"type":"order","ja":"「把＋物＋動詞＋結果」。「他把作业做完了」。","zh":"“把”字句。","tiles":["了","做完","他","作业","把"],"accept":[["他","把","作业","做完","了"]]},{"id":35,"type":"order","ja":"意味をたずねる文。「这个词是什么意思？」","zh":"这个词是什么意思？","tiles":["什么意思","词","是","这个"],"accept":[["这个","词","是","什么意思"]]},{"id":36,"type":"char","ja":"「放」は置く。形の似た「房」「方」「旁」に注意。","zh":"放 fàng。","stem":"你的手机{_}在哪儿？","opts":["放","房","方","旁"],"key":0,"hint":"fàng"},{"id":37,"type":"char","ja":"「渴」はのどが渇く。「喝」は飲む。","zh":"渴 kě，喝 hē。","stem":"我很{_}，想喝水。","opts":["喝","渴","可","哭"],"key":1,"hint":"kě"},{"id":38,"type":"char","ja":"「注意」の「注」。「住」と形が似ています。","zh":"“注意”的“注”。","stem":"请{_}意这个词。","opts":["住","主","注","往"],"key":2,"hint":"zhù"},{"id":39,"type":"char","ja":"「时候」の「候」。「后」と同じ hòu ですが、字が違います。","zh":"“时候”的“候”，不是“后”。","stem":"你什么时{_}去？","opts":["后","前","先","候"],"key":3,"hint":"hòu"},{"id":40,"type":"char","ja":"「为了」の「为」。「位」も wèi ですが使い方が違います。","zh":"“为了”的“为”。","stem":"他去中国{_}了学汉语。","opts":["为","位","外","往"],"key":0,"hint":"wèi"}]}}};
+const LV = DATA.levels;
+const KEY = "hsk3-mock-l1-v1";          // kept from the first version so saved level-1 attempts survive
+const LETTERS = ["A","B","C","D"];
+const IDS = [1,2,3];
+const TYPES = {
+  qa:    {ja:"会話の応答",     zh:"问答",       instr:"选对的回答。"},
+  cloze: {ja:"語の穴埋め",     zh:"选词填空",   instr:"选对的词。"},
+  note:  {ja:"掲示・メモ",     zh:"告示与便条", instr:"看一看，选对的答案。"},
+  scene: {ja:"場面に合う表現", zh:"情景判断",   instr:"选对的话。"},
+  order: {ja:"語順の並べ替え", zh:"排序成句",   instr:"点词，排成一句话。"},
+  char:  {ja:"漢字の選択",     zh:"选字填空",   instr:"看拼音，选对的字。"}
+};
+const TYPE_ORDER = ["qa","cloze","note","scene","order","char"];
+const VOCAB = {1:300, 2:500, 3:1000};
+const OFF = {3:{zh:"三级", d1:"読解30問 書き取り10問　約50分", d2:"累計語彙 1000語"}};
+
+const $ = function(s){ return document.querySelector(s); };
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function fmt(sec){ const m=Math.floor(sec/60), s=sec%60; return (m<10?"0":"")+m+":"+(s<10?"0":"")+s; }
+function today(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function pct(x){ return Math.round(x*100); }
+
+/* ---------- storage (this device only) ---------- */
+let S = load() || {name:"", date:"", level:{}};
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+function load(){
+  try{ const v = JSON.parse(localStorage.getItem(KEY) || "null"); if (v && typeof v==="object" && v.level) return v; }catch(e){}
+  return null;
+}
+
+/* ---------- large-text mode ---------- */
+function applyBig(){
+  document.documentElement.classList.toggle("big", !!S.big);
+  ["#bigBtn","#bigBtn2"].forEach(function(id){
+    const b = $(id); if (!b) return;
+    b.setAttribute("aria-pressed", String(!!S.big)); b.classList.toggle("solid", !!S.big);
+  });
+}
+function toggleBig(){ S.big = !S.big; save(); applyBig(); }
+$("#bigBtn").addEventListener("click", toggleBig);
+$("#bigBtn2").addEventListener("click", toggleBig);
+
+/* ---------- level / section helpers ---------- */
+function qs(id){ return LV[id].questions; }
+function secs(id){ return LV[id].sections; }
+function secRange(id, s){
+  let from = 0; for (let k=0;k<s;k++) from += secs(id)[k].count;
+  return {from:from, to:from+secs(id)[s].count, meta:secs(id)[s]};
+}
+function totalMinutes(id){ return secs(id).reduce(function(a,m){ return a+m.minutes; }, 0); }
+function isAns(q, a){
+  if (q.type==="order") return Array.isArray(a) && a.length===q.tiles.length;
+  return a!==null && a!==undefined && a>=0;
+}
+function isOk(q, a){
+  if (q.type==="order"){
+    if (!isAns(q,a)) return false;
+    const t = a.map(function(k){ return q.tiles[k]; }).join("|");
+    return q.accept.some(function(x){ return x.join("|")===t; });
+  }
+  return a===q.key;
+}
+function newAns(id){ return qs(id).map(function(q){ return q.type==="order" ? [] : null; }); }
+function answeredIn(id, L, s){
+  const r = secRange(id,s); let n = 0;
+  for (let i=r.from;i<r.to;i++) if (isAns(qs(id)[i], L.ans[i])) n++;
+  return n;
+}
+function chanceFrac(id, s){            // expected share correct by pure guessing
+  const r = secRange(id,s); let e = 0;
+  for (let i=r.from;i<r.to;i++){ const q = qs(id)[i]; if (q.type!=="order") e += 1/q.opts.length; }
+  return e/(r.to-r.from);
+}
+function wilson(k, n){
+  const z=1.96, p=k/n, d=1+z*z/n;
+  const c=(p+z*z/(2*n))/d, h=z*Math.sqrt(p*(1-p)/n + z*z/(4*n*n))/d;
+  return [Math.max(0,c-h), Math.min(1,c+h)];
+}
+
+/* ---------- finishing a section / a level ---------- */
+function sectionStats(id, L, s){
+  const r = secRange(id,s), byType = {}; let correct=0, blank=0; const wrong=[];
+  for (let i=r.from;i<r.to;i++){
+    const q = qs(id)[i], a = L.ans[i];
+    (byType[q.type] = byType[q.type] || [0,0])[1]++;
+    if (isOk(q,a)){ correct++; byType[q.type][0]++; }
+    else { if (!isAns(q,a)) blank++; wrong.push(i); }
+  }
+  const info = (L.secInfo && L.secInfo[s]) || {};
+  return {key:r.meta.key, total:r.meta.count, correct:correct, blank:blank, wrong:wrong, byType:byType,
+          usedSec:info.usedSec||0, reason:info.reason||"manual"};
+}
+// returns "wait" (another section follows), "done" (level finished) or "none"
+function endSection(id, reason){
+  const L = S.level[id]; if (!L || L.status!=="running") return "none";
+  const s = L.sec||0, list = secs(id), now = Date.now();
+  const t0 = L.secStart || L.startedAt;
+  L.secInfo = L.secInfo || [];
+  const lim = list[s].minutes*60;
+  L.secInfo[s] = {reason:reason, usedSec:Math.max(0, Math.min(lim, Math.round((Math.min(now, L.deadline||now)-t0)/1000)))};
+  if (s < list.length-1){
+    L.sec = s+1; L.idx = secRange(id, s+1).from; L.deadline = null; L.waiting = true;
+    save(); return "wait";
+  }
+  const sections = list.map(function(_,k){ return sectionStats(id, L, k); });
+  L.status = "done";
+  L.result = {sections:sections, correct:sections.reduce(function(a,x){return a+x.correct;},0),
+              total:sections.reduce(function(a,x){return a+x.total;},0),
+              blank:sections.reduce(function(a,x){return a+x.blank;},0), at:now};
+  save(); return "done";
+}
+function beginSection(id){
+  const L = S.level[id], s = L.sec||0, now = Date.now();
+  L.waiting = false; L.secStart = now; L.deadline = now + secs(id)[s].minutes*60000; save();
+}
+function resultOf(L){        // also reads results saved by the first (single-section) version
+  const R = L.result; if (R.sections) return R;
+  return {correct:R.correct, total:R.total, blank:R.blank, at:R.at,
+          sections:[{key:"read", total:R.total, correct:R.correct, blank:R.blank, wrong:R.wrong, byType:R.byType, usedSec:R.usedSec, reason:R.reason}]};
+}
+
+/* ---------- routing ---------- */
+let cur = 1, selected = null, tick = null, lastSay = -1, timeNext = "done";
+function show(id){
+  ["home","quiz","result"].forEach(function(s){ document.getElementById(s).hidden = (s!==id); });
+  window.scrollTo(0,0);
+}
+function closeOverlays(){ ["ov-card","ov-confirm","ov-time","ov-sec"].forEach(function(i){ document.getElementById(i).hidden = true; }); }
+
+/* ---------- home ---------- */
+function levelDesc(id){
+  return secs(id).map(function(x){ return x.ja+x.count+"問"; }).join(" ") + "　" + totalMinutes(id) + "分";
+}
+function renderHome(){
+  closeOverlays(); stopTick();
+  $("#name").value = S.name || "";
+  const run = IDS.filter(function(id){ return LV[id] && S.level[id] && S.level[id].status==="running"; })[0];
+  const bn = $("#banner");
+  if (run){
+    const L = S.level[run], s = L.sec||0;
+    const msg = L.waiting ? "「"+secs(run)[s].ja+"」はまだ始まっていません。" : "作答中です。残り "+fmt(Math.max(0, Math.ceil((L.deadline-Date.now())/1000)));
+    bn.innerHTML = '<div class="banner"><span lang="zh-CN">'+esc(LV[run].zh)+'</span><span>'+esc(msg)+'</span><button class="tbtn solid" id="resume" type="button" lang="zh-CN">继续作答</button></div>';
+    $("#resume").onclick = function(){ cur = run; enterQuiz(); };
+  } else bn.innerHTML = "";
+
+  $("#levels").innerHTML = IDS.map(function(id){
+    if (!LV[id]){
+      const o = OFF[id];
+      return '<div class="lv off" role="radio" aria-checked="false" aria-disabled="true"><span class="num" lang="zh-CN">'+esc(o.zh)+'</span><span><span class="d1">'+esc(o.d1)+'</span><br><span class="d2">'+esc(o.d2)+'</span></span><span class="side">審査後に追加</span></div>';
+    }
+    const L = S.level[id];
+    const left = '<span class="num" lang="zh-CN">'+esc(LV[id].zh)+'</span>';
+    const mid = '<span><span class="d1">'+esc(levelDesc(id))+'</span><br><span class="d2">累計語彙 '+VOCAB[id]+'語</span></span>';
+    if (L && L.status==="done"){
+      const R = resultOf(L);
+      return '<div class="lv static">'+left+mid+'<span class="side">'+R.correct+' / '+R.total+'<br><button class="tbtn" data-act="result" data-id="'+id+'" type="button" lang="zh-CN">看结果</button><button class="tbtn" data-act="redo" data-id="'+id+'" type="button" lang="zh-CN">重做</button></span></div>';
+    }
+    if (L && L.status==="running") return '<div class="lv static">'+left+mid+'<span class="side">作答中</span></div>';
+    const on = (selected===id);
+    return '<button class="lv'+(on?' sel':'')+'" type="button" role="radio" aria-checked="'+on+'" data-act="pick" data-id="'+id+'">'+left+mid+'<span class="bub'+(on?' on':'')+'"></span></button>';
+  }).join("");
+  $("#start").disabled = !(selected && LV[selected] && !S.level[selected]);
+  show("home");
+}
+$("#levels").addEventListener("click", function(e){
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const id = Number(b.dataset.id), act = b.dataset.act;
+  if (act==="pick"){ selected = id; renderHome(); }
+  else if (act==="result"){ cur = id; renderResult(); }
+  else if (act==="redo"){
+    if (b.dataset.armed){ delete S.level[id]; selected = id; save(); renderHome(); }
+    else { b.dataset.armed="1"; b.textContent="再点一次"; setTimeout(function(){ if (b.isConnected){ delete b.dataset.armed; b.textContent="重做"; } }, 3000); }
+  }
+});
+$("#start").addEventListener("click", function(){
+  if (!selected) return;
+  S.name = $("#name").value.trim(); S.date = today();
+  const now = Date.now();
+  S.level[selected] = {status:"running", startedAt:now, sec:0, secStart:now, deadline:now+secs(selected)[0].minutes*60000,
+                       waiting:false, idx:0, ans:newAns(selected), secInfo:[]};
+  save(); cur = selected; enterQuiz();
+});
+$("#name").addEventListener("keydown", function(e){ if (e.key==="Enter" && !$("#start").disabled) $("#start").click(); });
+$("#name").addEventListener("input", function(){ S.name = $("#name").value.trim(); save(); });
+
+/* ---------- passages ---------- */
+function passageHTML(p){
+  if (!p) return "";
+  if (p.kind==="note")   return '<div class="pas note"><div>'+esc(p.to)+'</div>'+p.lines.map(function(l){ return '<div>'+esc(l)+'</div>'; }).join("")+'<div class="sign">'+esc(p.sign)+'</div></div>';
+  if (p.kind==="sign")   return '<div class="pas sign"><div class="ttl">'+esc(p.title)+'</div>'+p.lines.map(function(l){ return '<div>'+esc(l)+'</div>'; }).join("")+'</div>';
+  if (p.kind==="prices") return '<div class="pas prices">'+p.rows.map(function(r){ return '<div class="pr"><span>'+esc(r[0])+'</span><span class="lead-dots"></span><span>'+esc(r[1])+'</span></div>'; }).join("")+'</div>';
+  if (p.kind==="sms")    return '<div class="pas sms">'+esc(p.text)+'</div>';
+  if (p.kind==="text")   return '<div class="pas text">'+esc(p.text)+'</div>';
+  if (p.kind==="table")  return '<div class="pas table"><table><caption>'+esc(p.title)+'</caption><tbody>'+p.rows.map(function(r){ return '<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>'; }).join("")+'</tbody></table></div>';
+  return "";
+}
+function stemHTML(stem, fill){ return esc(stem).replace("{_}", '<span class="blank">'+esc(fill||"")+'</span>'); }
+
+/* ---------- quiz ---------- */
+function enterQuiz(){
+  const L = S.level[cur];
+  if (!L || L.status!=="running"){ renderResult(); return; }
+  if (!L.waiting && L.deadline && Date.now()>=L.deadline){
+    if (endSection(cur,"time")==="done"){ renderResult(); return; }
+  }
+  show("quiz"); renderQ();
+  if (S.level[cur].waiting){ showSecIntro(); return; }
+  startTick();
+}
+function renderQ(){
+  const L = S.level[cur], s = L.sec||0, r = secRange(cur,s), i = L.idx, q = qs(cur)[i], a = L.ans[i], T = TYPES[q.type];
+  $("#qlv").textContent = LV[cur].zh + r.meta.zh;
+  $("#qbody").hidden = !!L.waiting;
+  if (L.waiting) $("#timer").textContent = fmt(r.meta.minutes*60);
+  $("#qno").textContent = "第 "+(i+1)+" 题";
+  $("#qprog").textContent = "已答 "+answeredIn(cur,L,s)+" / "+r.meta.count;
+  $("#instr").textContent = T.instr;
+  $("#passage").innerHTML = passageHTML(q.passage);
+  const isOrd = (q.type==="order");
+  $("#stem").hidden = isOrd; $("#opts").hidden = isOrd; $("#ord").hidden = !isOrd;
+  const hint = $("#hint"); hint.hidden = !q.hint; hint.innerHTML = q.hint ? '<span class="hl">拼音</span><span class="hp">'+esc(q.hint)+'</span>' : "";
+  if (isOrd){ renderOrder(q, a); }
+  else {
+    $("#stem").innerHTML = stemHTML(q.stem, isAns(q,a) ? q.opts[a] : "");
+    const box = $("#opts");
+    box.className = "opts" + ((q.type==="cloze"||q.type==="char") ? " grid" : "");
+    box.innerHTML = q.opts.map(function(o,k){
+      return '<button type="button" class="opt" role="radio" aria-checked="'+(a===k)+'" data-k="'+k+'"><span class="ab'+(a===k?' fill':'')+'" aria-hidden="true">'+LETTERS[k]+'</span><span class="t">'+esc(o)+'</span></button>';
+    }).join("");
+  }
+  $("#prev").disabled = (i===r.from);
+  $("#next").textContent = (i===r.to-1) ? "检查并交卷" : "下一题";
+}
+function renderOrder(q, a){
+  $("#ordLine").innerHTML = a.length
+    ? a.map(function(k,pos){ return '<button type="button" class="tile" data-pos="'+pos+'" aria-label="取消 '+esc(q.tiles[k])+'">'+esc(q.tiles[k])+'</button>'; }).join("")
+    : '<span class="ph">点下面的词，排成一句话</span>';
+  $("#ordPool").innerHTML = q.tiles.map(function(t,k){
+    return '<button type="button" class="tile" data-k="'+k+'"'+(a.indexOf(k)>=0?' disabled':'')+'>'+esc(t)+'</button>';
+  }).join("");
+}
+function setOrder(arr){
+  const L = S.level[cur]; if (!L || L.status!=="running" || L.waiting) return;
+  L.ans[L.idx] = arr; save();
+  renderOrder(qs(cur)[L.idx], arr);
+  const s = L.sec||0; $("#qprog").textContent = "已答 "+answeredIn(cur,L,s)+" / "+secRange(cur,s).meta.count;
+}
+$("#ordPool").addEventListener("click", function(e){
+  const b = e.target.closest(".tile"); if (!b || b.disabled) return;
+  const L = S.level[cur], a = L.ans[L.idx].slice(); a.push(Number(b.dataset.k)); setOrder(a);
+});
+$("#ordLine").addEventListener("click", function(e){
+  const b = e.target.closest(".tile"); if (!b) return;
+  const L = S.level[cur], a = L.ans[L.idx].slice(); a.splice(Number(b.dataset.pos),1); setOrder(a);
+});
+$("#ordClear").addEventListener("click", function(){ setOrder([]); });
+
+function choose(k){
+  const L = S.level[cur]; if (!L || L.status!=="running" || L.waiting) return;
+  const q = qs(cur)[L.idx]; if (q.type==="order" || k>=q.opts.length) return;
+  L.ans[L.idx] = k; save();
+  document.querySelectorAll("#opts .opt").forEach(function(b){
+    const on = Number(b.dataset.k)===k;
+    b.setAttribute("aria-checked", String(on));
+    b.querySelector(".ab").classList.toggle("fill", on);
+  });
+  const bl = document.querySelector("#stem .blank"); if (bl) bl.textContent = q.opts[k];
+  const s = L.sec||0; $("#qprog").textContent = "已答 "+answeredIn(cur,L,s)+" / "+secRange(cur,s).meta.count;
+}
+$("#opts").addEventListener("click", function(e){ const b = e.target.closest(".opt"); if (b) choose(Number(b.dataset.k)); });
+function go(d){
+  const L = S.level[cur]; if (!L || L.waiting) return;
+  const r = secRange(cur, L.sec||0), j = L.idx + d;
+  if (j < r.from) return;
+  if (j >= r.to){ askSubmit(); return; }
+  L.idx = j; save(); renderQ(); window.scrollTo(0,0);
+}
+$("#prev").addEventListener("click", function(){ go(-1); });
+$("#next").addEventListener("click", function(){ go(1); });
+
+/* answer card */
+function rowHTML(id, i, a, mode){
+  const q = qs(id)[i]; let mid = "";
+  if (q.type==="order"){
+    mid = '<span class="pill'+(isAns(q,a)?' on':'')+'">'+(mode==="result" ? "排序" : (isAns(q,a) ? "已排好" : "未排"))+'</span>';
+  } else {
+    for (let k=0;k<4;k++){
+      let c = "ab"; if (a===k) c += " fill"; if (mode==="result" && q.key===k) c += " key";
+      mid += '<span class="'+c+'">'+LETTERS[k]+'</span>';
+    }
+  }
+  const mark = (mode==="result") ? '<span class="m">'+(isOk(q,a)?"○":"×")+'</span>' : '';
+  return '<span class="n">'+(i+1)+'</span>'+mark+mid;
+}
+function cardHTML(id, L, s, mode){
+  const r = secRange(id,s), per = Math.ceil((r.to-r.from)/2); let html = "";
+  for (let c=0;c<2;c++){
+    html += "<div>";
+    for (let t=0;t<per;t++){
+      const i = r.from + c*per + t; if (i>=r.to) break;
+      const a = L.ans[i];
+      if (mode==="nav") html += '<button type="button" class="arow'+(i===L.idx?' cur':'')+'" data-i="'+i+'" aria-label="第'+(i+1)+'题，'+(isAns(qs(id)[i],a)?'已答':'未答')+'">'+rowHTML(id,i,a,mode)+'</button>';
+      else html += '<div class="arow">'+rowHTML(id,i,a,mode)+'</div>';
+    }
+    html += "</div>";
+  }
+  return html;
+}
+$("#cardBtn").addEventListener("click", function(){
+  const L = S.level[cur]; if (L.waiting) return;
+  $("#navcard").innerHTML = cardHTML(cur, L, L.sec||0, "nav");
+  $("#ov-card").hidden = false; $("#card-close").focus();
+});
+$("#navcard").addEventListener("click", function(e){
+  const b = e.target.closest("[data-i]"); if (!b) return;
+  const L = S.level[cur]; L.idx = Number(b.dataset.i); save();
+  $("#ov-card").hidden = true; renderQ(); window.scrollTo(0,0);
+});
+$("#card-close").addEventListener("click", function(){ $("#ov-card").hidden = true; });
+
+/* submit a section */
+function askSubmit(){
+  const L = S.level[cur]; if (L.waiting) return;
+  const s = L.sec||0, r = secRange(cur,s), left = r.meta.count - answeredIn(cur,L,s), last = (s===secs(cur).length-1);
+  let msg = left>0 ? "还有 "+left+" 题没有做。" : "这一部分都做完了。";
+  if (!last) msg += "交卷以后，不能回到"+r.meta.zh+"部分。";
+  $("#confirm-msg").textContent = msg;
+  $("#ov-confirm").hidden = false; $("#confirm-yes").focus();
+}
+$("#submitBtn").addEventListener("click", askSubmit);
+$("#confirm-no").addEventListener("click", function(){ $("#ov-confirm").hidden = true; });
+$("#confirm-yes").addEventListener("click", function(){
+  const res = endSection(cur,"manual"); stopTick(); closeOverlays();
+  if (res==="wait"){ renderQ(); showSecIntro(); } else renderResult();
+});
+$("#time-ok").addEventListener("click", function(){
+  closeOverlays();
+  if (timeNext==="wait"){ renderQ(); showSecIntro(); } else renderResult();
+});
+
+/* start of the next section */
+function showSecIntro(){
+  const L = S.level[cur], s = L.sec||0, prev = secs(cur)[s-1], next = secs(cur)[s];
+  $("#ov-sec-t").textContent = "下一部分：" + next.zh;
+  $("#sec-msg").textContent = prev.zh + "部分已经结束。接下来是" + next.zh + "部分，共 " + next.count + " 题，限时 " + next.minutes + " 分钟。";
+  $("#sec-ja").textContent = "「"+prev.ja+"」は終了しました。次は「"+next.ja+"」（"+next.count+"問・"+next.minutes+"分）です。下のボタンを押すと、時計が動き始めます。";
+  $("#sec-go").textContent = "开始" + next.zh;
+  $("#ov-sec").hidden = false; $("#sec-go").focus();
+}
+$("#sec-go").addEventListener("click", function(){
+  beginSection(cur); closeOverlays(); renderQ(); startTick();
+});
+
+/* timer (per section) */
+function startTick(){ stopTick(); lastSay = -1; updateTimer(); tick = setInterval(updateTimer, 250); }
+function stopTick(){ if (tick){ clearInterval(tick); tick = null; } }
+function updateTimer(){
+  const L = S.level[cur];
+  if (!L || L.status!=="running" || L.waiting){ stopTick(); return; }
+  const rem = Math.max(0, Math.ceil((L.deadline-Date.now())/1000));
+  const t = $("#timer"), txt = fmt(rem);
+  if (t.textContent!==txt) t.textContent = txt;
+  t.classList.toggle("low", rem<=180);
+  if ((rem===300 || rem===60) && lastSay!==rem){ lastSay = rem; $("#live").textContent = "还有 "+(rem/60)+" 分钟"; }
+  if (rem<=0){
+    const name = secRange(cur, L.sec||0).meta.zh;
+    timeNext = endSection(cur,"time"); stopTick(); closeOverlays();
+    $("#time-msg").textContent = (timeNext==="wait") ? "时间到，"+name+"部分已经自动交卷。" : "时间到，已经自动交卷。";
+    $("#time-ok").textContent = (timeNext==="wait") ? "继续" : "看结果";
+    $("#ov-time").hidden = false; $("#time-ok").focus();
+  }
+}
+document.addEventListener("visibilitychange", function(){ if (!document.hidden && !$("#quiz").hidden) updateTimer(); });
+window.addEventListener("pageshow", function(){ if (!$("#quiz").hidden) updateTimer(); });
+
+document.addEventListener("keydown", function(e){
+  if ($("#quiz").hidden || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (!$("#ov-card").hidden || !$("#ov-confirm").hidden || !$("#ov-time").hidden || !$("#ov-sec").hidden) return;
+  const tag = (e.target && e.target.tagName) || "";
+  if (tag==="TEXTAREA" || tag==="INPUT") return;
+  const k = e.key.toLowerCase();
+  if (/^[1-4]$/.test(k)) choose(Number(k)-1);
+  else if (/^[abcd]$/.test(k)) choose(k.charCodeAt(0)-97);
+  else if (k==="arrowright") go(1);
+  else if (k==="arrowleft") go(-1);
+});
+
+/* ---------- result ---------- */
+function estHTML(k, n, chance){
+  const w = wilson(k,n), p = k/n*100, c = chance*100;
+  return '<div class="est" aria-hidden="true"><div class="track"></div>'+
+    '<div class="range" style="left:'+(w[0]*100)+'%;width:'+((w[1]-w[0])*100)+'%"></div>'+
+    '<div class="chance" style="left:'+c+'%"></div>'+
+    '<div class="dot" style="left:'+p+'%"></div>'+
+    '<span class="tk" style="left:0;transform:none">0%</span>'+
+    (c>12 && c<42 ? '<span class="tk" style="left:'+c+'%;color:var(--red)">'+Math.round(c)+'%</span>' : '')+
+    '<span class="tk" style="left:50%">50%</span><span class="tk" style="left:100%;transform:translateX(-100%)">100%</span></div>';
+}
+function estCapHTML(k, n, chance){
+  const w = wilson(k,n), lo = pct(w[0]), hi = pct(w[1]), c = Math.round(chance*100), m = Math.round(chance*n);
+  return '<p class="cap">'+n+'問だけの結果なので、誤差が大きくなります。計算上、本当の実力は約'+lo+'%から'+hi+'%の間にある可能性があります（95%区間・目安）。点線は、当てずっぽうで選んだときの平均（'+c+'%、約'+m+'問）です。'+
+    '<span class="zh" lang="zh-CN">只有'+n+'题，误差较大。粗略估计，真实水平约在'+lo+'%到'+hi+'%之间（95%区间）。虚线是乱猜的平均水平（'+c+'%，约'+m+'题）。</span></p>';
+}
+function answerText(q, a){
+  if (q.type==="order") return a.map(function(k){ return q.tiles[k]; }).join("");
+  return LETTERS[a]+"　"+q.opts[a];
+}
+function renderResult(){
+  closeOverlays(); stopTick();
+  const L = S.level[cur]; if (!L || L.status!=="done"){ renderHome(); return; }
+  const R = resultOf(L), lv = LV[cur], multi = lv.sections.length>1;
+  const used = R.sections.reduce(function(a,x){ return a+x.usedSec; }, 0);
+  const timed = R.sections.some(function(x){ return x.reason==="time"; });
+  $("#who").textContent = (S.name ? S.name+"　" : "") + (S.date || "") + "　用時 " + fmt(used) + (timed ? "（時間切れの部分あり）" : "");
+  $("#rtitle").innerHTML = '<span lang="zh-CN">'+esc(lv.zh)+(multi ? "" : esc(lv.sections[0].zh))+'</span>　結果';
+
+  $("#rsections").innerHTML = R.sections.map(function(sec,s){
+    const meta = lv.sections[s];
+    return '<div class="rsec">'+(multi ? '<h2 class="rsh"><span lang="zh-CN">'+esc(meta.zh)+'</span><span class="zh" lang="zh-CN">'+esc(meta.ja)+'</span></h2>' : '')+
+      '<div class="score"><span class="big">'+sec.correct+'</span><span class="of">/ '+sec.total+'</span><span class="pct">'+pct(sec.correct/sec.total)+'%</span></div>'+
+      estHTML(sec.correct, sec.total, chanceFrac(cur,s))+estCapHTML(sec.correct, sec.total, chanceFrac(cur,s))+'</div>';
+  }).join("");
+  $("#rtotal").textContent = multi ? "合計　"+R.correct+" / "+R.total : "";
+  $("#estcap").innerHTML =
+    '<p class="cap">問題の難しさは調整していないため、他の人や正式な試験との比較には使えません。点数から「何級」とは判定しません。'+
+      '<span class="zh" lang="zh-CN">题目难度未经标定，不能和别人或正式考试比较，也不据此判定“几级”。</span></p>'+
+    (R.blank>0 ? '<p class="cap">未回答：'+R.blank+'問<span class="zh" lang="zh-CN">未答：'+R.blank+'题</span></p>' : "");
+
+  const agg = {};
+  R.sections.forEach(function(sec){ Object.keys(sec.byType).forEach(function(t){ const v = sec.byType[t]; const a = agg[t] || (agg[t] = [0,0]); a[0]+=v[0]; a[1]+=v[1]; }); });
+  $("#types").innerHTML = TYPE_ORDER.filter(function(t){ return agg[t]; }).map(function(t){
+    const v = agg[t]; let sq = "";
+    for (let k=0;k<v[1];k++) sq += '<i class="'+(k<v[0]?'ok':'')+'"></i>';
+    return '<div class="trow"><span>'+esc(TYPES[t].ja)+'<span class="zh muted" lang="zh-CN">　'+esc(TYPES[t].zh)+'</span></span><span class="sq" aria-hidden="true">'+sq+'</span><span class="sc">'+v[0]+' / '+v[1]+'</span></div>';
+  }).join("");
+
+  $("#rcards").innerHTML = lv.sections.map(function(meta,s){
+    return (multi ? '<div class="cardhead" lang="zh-CN">'+esc(meta.zh)+'</div>' : '')+'<div class="acard">'+cardHTML(cur, L, s, "result")+'</div>';
+  }).join("");
+
+  const items = [];
+  R.sections.forEach(function(sec){ sec.wrong.forEach(function(i){ items.push(i); }); });
+  $("#wrong").innerHTML = items.length ? items.map(function(i){
+    const q = qs(cur)[i], a = L.ans[i], has = isAns(q,a);
+    let body;
+    if (q.type==="order"){
+      body = '<div class="pas" style="margin:6px 0 0">'+esc(q.accept[0].join(""))+'</div>';
+    } else {
+      body = '<div class="pas" style="margin:6px 0 0">'+stemHTML(q.stem, q.opts[q.key])+'</div>'+(q.hint ? '<div class="hint"><span class="hl">拼音</span><span class="hp">'+esc(q.hint)+'</span></div>' : '');
+    }
+    const right = (q.type==="order") ? q.accept.map(function(x){ return x.join(""); }).join("　／　") : LETTERS[q.key]+"　"+q.opts[q.key];
+    const note = (q.type==="order") ? '<span class="zh" lang="zh-CN" style="margin-top:4px">※文法的に正しい別の語順だった場合は、先生に確認してください。如果你排的是另一种通顺的语序，请问老师。</span>' : "";
+    const mine = has ? esc(answerText(q,a)) : '<span class="muted" style="text-decoration:none">未回答</span>';
+    return '<li><div class="wh"><b>'+(i+1)+'</b><span>'+esc(TYPES[q.type].ja)+'</span></div>'+
+      '<div class="compact" lang="zh-CN">'+passageHTML(q.passage)+body+'</div>'+
+      '<div class="ans"><span class="l">あなた</span><span class="v mine" lang="zh-CN">'+mine+'</span>'+
+      '<span class="l">正解</span><span class="v right" lang="zh-CN">'+esc(right)+'</span></div>'+
+      '<div class="ex">'+esc(q.ja)+'<span class="zh" lang="zh-CN">'+esc(q.zh)+'</span>'+note+'</div></li>';
+  }).join("") : '<li class="none">全問正解です。<span class="zh" lang="zh-CN">全部答对。</span></li>';
+
+  $("#next-levels").innerHTML = IDS.map(function(id){
+    if (!LV[id]) return '<div class="lvrow"><span class="n" lang="zh-CN">'+esc(OFF[id].zh)+'</span><span class="s">審査後に追加</span><span></span></div>';
+    const Ls = S.level[id]; let s, btn = "";
+    if (Ls && Ls.status==="done"){ const r = resultOf(Ls); s = r.correct+" / "+r.total; btn = '<button class="tbtn" data-redo="'+id+'" type="button" lang="zh-CN">重做</button>'; }
+    else if (Ls && Ls.status==="running"){ s = "作答中"; btn = '<button class="tbtn solid" data-resume="'+id+'" type="button" lang="zh-CN">继续</button>'; }
+    else { s = "未受験"; btn = '<button class="tbtn solid" data-go="'+id+'" type="button" lang="zh-CN">选择</button>'; }
+    return '<div class="lvrow"><span class="n" lang="zh-CN">'+esc(LV[id].zh)+'</span><span class="s">'+esc(s)+'</span><span>'+btn+'</span></div>';
+  }).join("");
+
+  $("#copybox").hidden = true;
+  show("result"); $("#rtitle").focus({preventScroll:true});
+}
+$("#next-levels").addEventListener("click", function(e){
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.redo){
+    const id = Number(b.dataset.redo);
+    if (b.dataset.armed){ delete S.level[id]; selected = id; save(); renderHome(); }
+    else { b.dataset.armed = "1"; b.textContent = "再点一次"; setTimeout(function(){ if (b.isConnected){ delete b.dataset.armed; b.textContent = "重做"; } }, 3000); }
+  } else if (b.dataset.go){ selected = Number(b.dataset.go); renderHome(); }
+  else if (b.dataset.resume){ cur = Number(b.dataset.resume); enterQuiz(); }
+});
+$("#home-btn").addEventListener("click", function(){ renderHome(); });
+
+function summaryText(){
+  const lines = ["HSK 3.0 大纲模拟（阅读与书写，样卷）","姓名："+(S.name||"未填写"),"日期："+(S.date||"")];
+  IDS.forEach(function(id){
+    const L = S.level[id]; if (!LV[id] || !L || L.status!=="done") return;
+    const R = resultOf(L);
+    lines.push(LV[id].zh+"：合计 "+R.correct+"/"+R.total);
+    R.sections.forEach(function(sec,s){
+      const meta = LV[id].sections[s], w = wilson(sec.correct, sec.total);
+      lines.push("　"+meta.zh+"："+sec.correct+"/"+sec.total+"（"+pct(sec.correct/sec.total)+"%），95%区间约 "+pct(w[0])+"%–"+pct(w[1])+"%，乱猜平均约 "+Math.round(chanceFrac(id,s)*sec.total)+" 题");
+      lines.push("　　各类："+TYPE_ORDER.filter(function(t){ return sec.byType[t]; }).map(function(t){ return TYPES[t].zh+" "+sec.byType[t][0]+"/"+sec.byType[t][1]; }).join("，"));
+      lines.push("　　未答 "+sec.blank+" 题；用时 "+fmt(sec.usedSec)+(sec.reason==="time"?"（时间到自动交卷）":"")+"；错题："+(sec.wrong.length ? sec.wrong.map(function(i){ return "第"+(i+1)+"题"; }).join("、") : "无"));
+    });
+  });
+  lines.push("说明：题数少，误差大；题目为自编、难度未标定；非官方成绩，不折算官方分数。");
+  return lines.join("\n");
+}
+$("#copy").addEventListener("click", function(){
+  const text = summaryText(), btn = $("#copy"), box = $("#copybox");
+  const orig = '結果をコピー<span class="zh" lang="zh-CN">复制成绩发给老师</span>';
+  const done = function(){ btn.innerHTML = 'コピーしました<span class="zh" lang="zh-CN">已复制</span>'; setTimeout(function(){ btn.innerHTML = orig; }, 2000); };
+  const fallback = function(){
+    box.value = text; box.hidden = false; box.focus(); box.select();
+    let ok = false; try{ ok = document.execCommand("copy"); }catch(e){}
+    if (ok) done(); else btn.innerHTML = '下の文字を選択してコピー<span class="zh" lang="zh-CN">请手动复制下方文字</span>';
+  };
+  try{
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+    else fallback();
+  }catch(e){ fallback(); }
+});
+
+/* ---------- boot ---------- */
+(function boot(){
+  applyBig();
+  // anything whose time ran out while the page was closed is submitted now
+  let finished = null;
+  IDS.forEach(function(id){
+    const L = S.level[id];
+    if (LV[id] && L && L.status==="running" && !L.waiting && L.deadline && Date.now()>=L.deadline){
+      if (endSection(id,"time")==="done") finished = id;
+    }
+  });
+  if (finished){ cur = finished; renderResult(); return; }
+  renderHome();
+})();
+})();
+
+</script>
+</body>
+</html>
